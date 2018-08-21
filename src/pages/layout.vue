@@ -1,7 +1,7 @@
 <template>
     <div>
         <headers/>
-        <p>zhongbu</p>
+        <Index/>
         <Footers/>
     </div>
 </template>
@@ -10,6 +10,7 @@
 
     import Headers from '@/components/header'
     import Footers from '@/components/footer.vue'
+    import Index from './index.vue';
     
     export default {
         name: "layout",
@@ -20,7 +21,8 @@
         },
         components:{
             Headers,
-            Footers
+            Footers,
+            Index
         }
         
     }

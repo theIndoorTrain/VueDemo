@@ -1,6 +1,7 @@
 <template>
-    <div class="container">
-<nav class="navbar navbar-expand-xl bg-light navbar-light">
+<div class="bg-light">
+    <div class="container ">
+<nav class="navbar navbar-expand-xl  navbar-light">
     <!-- Brand/logo -->
     <a class="navbar-brand" href="#">   
             <img alt="Brand" src="@/assets/logo.png" height="100px">
@@ -18,7 +19,7 @@
             <a class="nav-link" href="#">加入我们</a>
             </li>
             <li>
-                <a class="nav-link text-info" href="#">登录</a> 
+                 <Login/>
             </li>
         </ul>
 
@@ -26,13 +27,18 @@
     </nav> 
 
     </div>
+    </div>
 
 
 </template>
 
 <script>
+import Login from '@/components/login'
 export default {
-  name: "headers"
+  name: "headers",
+  components:{
+      Login
+  }
 };
 </script>
 
