@@ -3,6 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import Axios from 'axios'
+
+Vue.prototype.$axios=Axios
+
+Vue.prototype.Host = '/api'
 
 Vue.config.productionTip = false
 

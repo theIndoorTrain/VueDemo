@@ -18,16 +18,16 @@
             <form>
             <div class="form-group">
             <label for="usr">用户名:</label>
-            <input type="text" class="form-control" id="usr">
+            <input type="text" class="form-control" id="usr" v-model="username">
             </div>
             <div class="form-group">
             <label for="pwd">密码:</label>
-            <input type="password" class="form-control" id="pwd">
+            <input type="password" class="form-control" id="pwd" v-model="password">
             </div>
-            <div class="from-group pull-center">
-                <input type="submit" class="btn btn-info" value="登录">
+            <div class="from-group">
+              <button type="button" class="btn btn-info" @click="login" data-dismiss="modal">登录</button> 
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input type="submit" class="btn btn-info" value="注册"> 
+              <button type="button" class="btn btn-info" @click="sighIn" data-dismiss="modal">注册</button>
             </div>
   </form>
         </div>
@@ -46,7 +46,36 @@
 
 <script>
     export default {
-        name:'login'
+        name:'login',
+        data() {
+          return {
+            username: 'admin',
+            password: '123456',
+            isLogin: false
+          }
+        },
+        methods: {
+          login() {
+            var user = {
+              username : this.username,
+              password : this.password
+            }
+            var that = this
+            this.$axios.post('/api/login',user)
+            .then(response=>{
+              if(response.data) {
+                that.$emit('login',that.username)
+              }
+
+            })
+            .catch(error=> {
+              console.log(error);
+            })
+          },
+          sighIn() {
+            this.$router.push('sighIn')
+          }
+        },
         
     }
 </script>
