@@ -49,22 +49,22 @@
         name:'login',
         data() {
           return {
-            username: 'admin',
-            password: '123456',
+            username: '',
+            password: '',
             isLogin: false
           }
         },
         methods: {
           login() {
             var user = {
-              username : this.username,
+              email : this.username,
               password : this.password
             }
             var that = this
-            this.$axios.post('/api/login',user)
+            this.$axios.post('/api/user/login',user)
             .then(response=>{
-              if(response.data) {
-                that.$emit('login',that.username)
+              if(response.data!=null) {
+                that.$emit('login',response.data)
               }
 
             })

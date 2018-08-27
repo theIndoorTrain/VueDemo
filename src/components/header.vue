@@ -33,7 +33,7 @@
                 <img alt="Brand" :src="url" width="60px" height="60px">
             </a>
             <div class="dropdown-menu">
-                <router-link to="/" class="dropdown-item">个人中心</router-link>
+                <router-link :to="{name:'home',params:{user:user}}"  class="dropdown-item">个人中心</router-link>
                 <a class="dropdown-item" @click.prevent="logout">注销</a>
             </div>
         </div>
@@ -57,43 +57,61 @@ export default {
   name: "headers",
   data() {
       return {
+        urlstr: 'http://127.0.0.1:8088/',
+        url:'',
         isLogin: false,
-        url:''
+        user:null,
+        cookies:null
       }
   },
   methods: {
-      login(username) {
-        var that = this
-        this.$axios.get('/api/icon/'+username)
-        .then(function (response) {
-            that.url = response.data
-            that.isLogin = true
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+      login(user) {
+          this.user = user
+          this.url = this.urlstr+user.icon
+          this.isLogin = true
+          document.cookie = "url="+this.url
+          document.cookie = "id="+this.user.id
+          console.log(document.cookie)
       },
       logout() {
         var that = this
-        this.$axios.get('/api/logout')
+        this.$axios.get('/api/user/logout/')
         .then(function (response) {
+            that.user = null
             that.isLogin = false
             console.log(response);
         })
         .catch(function (error) {
             console.log(error);
         })
+      },
+      getCookie(cname){
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) 
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
       }
   },
   components:{
       Login
+  },
+  created(){
+      if(this.getCookie('url')!=null) {
+          console.log("cookie")
+          this.url= this.getCookie('url')
+          this.isLogin = true
+      } else {
+          console.log("cookie no")
+      }
   }
 };
 </script>
 
 <style scoped>
-
 a{
     font-size: 30px;
 }
