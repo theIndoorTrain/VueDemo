@@ -42,11 +42,12 @@
             </li>
             <li class="nav-item">
                 <router-link to="/home/share" class="nav-link"><span >时光分享</span></router-link>
+            </li>
+            <li class="nav-item">
+                <router-link to="/home/friend" class="nav-link"><span >好友管理</span></router-link>
+            </li>
             <li class="nav-item">
                 <router-link to="/" class="nav-link"><span >返回大厅</span></router-link>
-            </li>
-            <li v-if="!isLogin">
-                 <Login @login="login"/>
             </li>
         </ul>
 
@@ -84,6 +85,7 @@ nav{
 
 img{
     border: 2px solid;
+    margin-right: 200px;
 }
 
 </style>

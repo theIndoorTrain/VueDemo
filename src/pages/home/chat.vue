@@ -1,12 +1,15 @@
 <template>
     <div>
-        聊天框
+        haha
     </div>
 </template>
 
 <script>
     export default {
-        name:'chat'
+        name:'chat',
+        created() {
+            this.$emit('list',true)
+        },
     }
 </script>
 

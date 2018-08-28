@@ -69,7 +69,6 @@ export default {
           this.user = user
           this.url = this.urlstr+user.icon
           this.isLogin = true
-          document.cookie = "url="+this.url
           document.cookie = "id="+this.user.id
           console.log(document.cookie)
       },
@@ -79,6 +78,7 @@ export default {
         .then(function (response) {
             that.user = null
             that.isLogin = false
+            document.cookie = "id=; expires=Thu, 01 Jan 1970 00:00:00 GMT"
             console.log(response);
         })
         .catch(function (error) {
@@ -100,10 +100,19 @@ export default {
       Login
   },
   created(){
-      if(this.getCookie('url')!=null) {
-          console.log("cookie")
-          this.url= this.getCookie('url')
-          this.isLogin = true
+      if(this.getCookie('id')!=null) {
+        var that = this
+        this.$axios.get('/api/user/'+this.getCookie('id'))
+        .then(function (response) {
+            that.user = response.data
+            that.url = that.urlstr+that.user.icon
+            that.isLogin = true
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+          
       } else {
           console.log("cookie no")
       }

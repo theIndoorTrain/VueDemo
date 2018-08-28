@@ -9,6 +9,7 @@ import Home from '@/pages/home'
 import Center from '@/pages/home/center'
 import Share from '@/pages/home/share'
 import Chat from '@/pages/home/chat'
+import Friend from '@/pages/home/friend'
 
 Vue.use(Router)
 
@@ -60,6 +61,11 @@ export default new Router({
           path: 'chat',
           name: 'chat',
           component: Chat
+        },
+        {
+          path: 'friend',
+          name: 'friend',
+          component: Friend
         }
       ]
     }

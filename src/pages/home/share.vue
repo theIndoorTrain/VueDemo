@@ -6,7 +6,10 @@
 
 <script>
     export default {
-        name:'share'
+        name:'share',
+        created() {
+            this.$emit('list',true)
+        },
     }
 </script>
 

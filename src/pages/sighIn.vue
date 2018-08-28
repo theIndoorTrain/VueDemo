@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                 <label for="email">昵称:</label>
-                <input type="email" class="form-control" id="username" placeholder="Enter email" v-model="username">
+                <input type="text" class="form-control" id="username" placeholder="Enter email" v-model="username">
                 </div>
                 <div class="form-group">
                 <label for="pwd">密码:</label>
@@ -55,8 +55,8 @@
                     var that = this
                     this.$axios.post('/api/user/sighIn',user)
                         .then(response=>{
-                        if(response.data) {
-                            that.$router.push('')
+                        if(response.data!=null) {
+                            that.$router.push({name:"home",params:{user:response.data}})
                         }
 
                         })

@@ -3,7 +3,7 @@
         
         <div class="container">
             <Header :user="user"/>
-            <Main/>
+            <Main />
         </div>
     </div>
 </template>

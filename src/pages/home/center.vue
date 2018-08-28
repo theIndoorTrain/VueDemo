@@ -7,6 +7,9 @@
 <script>
     export default {
         name:'center',
+        created() {
+            this.$emit('list',true)
+        },
     }
 </script>
 
