@@ -1,25 +1,24 @@
-/*
-Navicat MySQL Data Transfer
+-- --------------------------------------------------------
+-- 主机:                           127.0.0.1
+-- 服务器版本:                        5.1.62-community - MySQL Community Server (GPL)
+-- 服务器操作系统:                      Win64
+-- HeidiSQL 版本:                  9.5.0.5196
+-- --------------------------------------------------------
 
-Source Server         : cubeboot
-Source Server Version : 50721
-Source Host           : 10.1.51.31:3306
-Source Database       : xm
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-Target Server Type    : MYSQL
-Target Server Version : 50721
-File Encoding         : 65001
 
-Date: 2018-08-28 17:15:47
-*/
+-- 导出 xm 的数据库结构
+DROP DATABASE IF EXISTS `xm`;
+CREATE DATABASE IF NOT EXISTS `xm` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `xm`;
 
-SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for friend
--- ----------------------------
+-- 导出  表 xm.friend 结构
 DROP TABLE IF EXISTS `friend`;
-CREATE TABLE `friend` (
+CREATE TABLE IF NOT EXISTS `friend` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `uid` int(10) unsigned NOT NULL COMMENT '好友id',
   `gid` int(10) unsigned NOT NULL COMMENT '分组id',
@@ -31,18 +30,18 @@ CREATE TABLE `friend` (
   CONSTRAINT `FK_friend_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='好友';
 
--- ----------------------------
--- Records of friend
--- ----------------------------
-INSERT INTO `friend` VALUES ('1', '2', '3', '0');
-INSERT INTO `friend` VALUES ('2', '3', '3', '0');
-INSERT INTO `friend` VALUES ('3', '4', '4', '0');
+-- 正在导出表  xm.friend 的数据：~3 rows (大约)
+DELETE FROM `friend`;
+/*!40000 ALTER TABLE `friend` DISABLE KEYS */;
+INSERT INTO `friend` (`id`, `uid`, `gid`, `status`) VALUES
+	(1, 2, 3, 0),
+	(2, 3, 3, 0),
+	(3, 4, 4, 0);
+/*!40000 ALTER TABLE `friend` ENABLE KEYS */;
 
--- ----------------------------
--- Table structure for groups
--- ----------------------------
+-- 导出  表 xm.groups 结构
 DROP TABLE IF EXISTS `groups`;
-CREATE TABLE `groups` (
+CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
   `gname` varchar(20) NOT NULL COMMENT '分组名称',
   `uid` int(10) unsigned NOT NULL COMMENT '用户id',
@@ -51,19 +50,19 @@ CREATE TABLE `groups` (
   CONSTRAINT `FK_group_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='好友分组';
 
--- ----------------------------
--- Records of groups
--- ----------------------------
-INSERT INTO `groups` VALUES ('1', '好友', '4');
-INSERT INTO `groups` VALUES ('2', '好友', '10');
-INSERT INTO `groups` VALUES ('3', '好友', '1');
-INSERT INTO `groups` VALUES ('4', '亲人', '1');
+-- 正在导出表  xm.groups 的数据：~4 rows (大约)
+DELETE FROM `groups`;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` (`id`, `gname`, `uid`) VALUES
+	(1, '好友', 4),
+	(2, '好友', 10),
+	(3, '好友', 1),
+	(4, '亲人', 1);
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
+-- 导出  表 xm.user 结构
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `code` int(6) unsigned DEFAULT '0' COMMENT '验证码',
   `username` varchar(20) NOT NULL COMMENT '昵称',
@@ -77,11 +76,17 @@ CREATE TABLE `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('1', '0', '零度微笑', 'q1373572467..', '1373572467@qq.com', null, '2010-01-01 00:00:00', '1.jpg', null);
-INSERT INTO `user` VALUES ('2', '0', 'admin', '123456', '1245@qq.com', null, '2010-01-01 00:00:00', '1.jpg', null);
-INSERT INTO `user` VALUES ('3', '0', 'xxmm', '123456', '15226@qq.com', null, '2010-01-01 00:00:00', '1.jpg', null);
-INSERT INTO `user` VALUES ('4', '0', 'xxmmaxkjd', '123456', '152261@qq.com', null, '2010-01-01 00:00:00', '1.jpg', null);
-INSERT INTO `user` VALUES ('10', '0', 'xxmmaxkjd', '123456', '1522611@qq.com', null, '2010-01-01 00:00:00', '1.jpg', null);
+-- 正在导出表  xm.user 的数据：~5 rows (大约)
+DELETE FROM `user`;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`, `code`, `username`, `password`, `email`, `sex`, `birth`, `icon`, `signature`) VALUES
+	(1, 0, '零度微笑', 'q1373572467..', '1373572467@qq.com', 1, '2010-01-01 00:00:00', '1.jpg', '说的都是无法'),
+	(2, 0, 'admin', '123456', '1245@qq.com', NULL, '2010-01-01 00:00:00', '1.jpg', NULL),
+	(3, 0, 'xxmm', '123456', '15226@qq.com', NULL, '2010-01-01 00:00:00', '1.jpg', NULL),
+	(4, 0, 'xxmmaxkjd', '123456', '152261@qq.com', NULL, '2010-01-01 00:00:00', '1.jpg', NULL),
+	(10, 0, 'xxmmaxkjd', '123456', '1522611@qq.com', NULL, '2010-01-01 00:00:00', '1.jpg', NULL);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

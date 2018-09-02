@@ -21,16 +21,14 @@
                 <FriendList/>
             </div>
             <div id="menu1" class="container tab-pane fade"><br>
-            <h3>Menu 1</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <FriendAdd/>
+            
             </div>
             <div id="menu2" class="container tab-pane fade"><br>
-            <h3>Menu 2</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                <GroupList/>
             </div>
             <div id="menu3" class="container tab-pane fade"><br>
-            <h3>Menu 2</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                <GroupAdd/>
             </div>
         </div>
     </div>
@@ -38,13 +36,19 @@
 
 <script>
     import FriendList from '@/components/friend/friendList'
+    import FriendAdd from '@/components/friend/friendAdd'
+    import GroupList from '@/components/friend/groupList'
+    import GroupAdd from '@/components/friend/groupAdd'
     export default {
         name:'friend',
         created() {
             this.$emit('list',false)
         },
         components:{
-            FriendList
+            FriendList,
+            FriendAdd,
+            GroupList,
+            GroupAdd
         }
 
     }

@@ -17,7 +17,22 @@
    
         <!-- 模态框主体 -->
         <div class="modal-body">
-          模态框内容..
+          <form>
+                <div class="form-group">
+                    <label for="username">用户昵称:</label>
+                    <input type="text" class="form-control" id="username" v-model="user.username">
+                </div>
+                <div class="form-group">
+                    <label for="signature">个性签名:</label>
+                    <input type="text" class="form-control" id="signature" v-model="user.signature">
+                </div>
+                <div class="form-group">
+                    <label for="sex">性别:</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" value="1" v-model="user.sex">男</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" value="0" v-model="user.sex">女</label>
+                </div>
+                <button type="submit" class="btn btn-primary" @click="update">提交修改</button>
+            </form>
         </div>
    
         <!-- 模态框底部 -->
@@ -65,6 +80,19 @@
         data() {
             return {
                 url: 'http://127.0.0.1:8088/'+this.user.icon
+            }
+        },
+        methods: {
+            update() {
+                var that = this
+                this.$axios.post('/api/user/update',this.user)
+                .then(function (response) {
+
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             }
         },
         props: {

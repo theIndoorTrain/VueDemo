@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <img :src="'http://127.0.0.1:8088/'+friend.user.icon" width="55px" height="55px" >
                     {{friend.user.username}}
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1" @click="todelete(friend)">
                         删除
                     </button>
 
@@ -29,7 +29,7 @@
     </div>
 
     <!-- 模态框 -->
-    <div class="modal fade" id="myModal1">
+    <div class="modal fade" id="myModal1" v-if="status">
         <div class="modal-dialog">
         <div class="modal-content">
     
@@ -41,11 +41,12 @@
     
             <!-- 模态框主体 -->
             <div class="modal-body">
-            你确定要删除吗？
+            你确定要删除{{theFriend.user.username}}吗？
             </div>
     
             <!-- 模态框底部 -->
             <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="godelete">确认</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
             </div>
     
@@ -67,7 +68,7 @@
     
             <!-- 模态框主体 -->
             <div class="modal-body">
-            你确定要删除吗？
+            你确定要删吗？
             </div>
     
             <!-- 模态框底部 -->
@@ -88,7 +89,9 @@
         name:'friendList',
         data() {
             return {
-                groups: null
+                groups: null,
+                theFriend: null,
+                status:false
             }
         },
         methods: {
@@ -101,6 +104,21 @@
                     if (c.indexOf(name)==0) return c.substring(name.length,c.length);
                 }
                 return "";
+            },
+            todelete(friend) {
+                this.theFriend = friend
+                this.status = true
+                console.log(friend)
+            },
+            godelete() {
+                var that = this
+                this.$axios.delete('/api/friend/delete/'+this.theFriend.id)
+                .then(function (response) {
+                    console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             }
         },
         created() {
