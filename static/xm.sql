@@ -1,12 +1,13 @@
 -- --------------------------------------------------------
--- 主机:                           127.0.0.1
--- 服务器版本:                        5.1.62-community - MySQL Community Server (GPL)
+-- 主机:                           10.1.51.31
+-- 服务器版本:                        5.7.21 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
@@ -21,22 +22,24 @@ DROP TABLE IF EXISTS `friend`;
 CREATE TABLE IF NOT EXISTS `friend` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `uid` int(10) unsigned NOT NULL COMMENT '好友id',
-  `gid` int(10) unsigned NOT NULL COMMENT '分组id',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
+  `gid` int(10) unsigned DEFAULT NULL COMMENT '分组id',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `myid` int(10) unsigned DEFAULT NULL COMMENT '用户id',
+  `note` varchar(15) DEFAULT NULL COMMENT '好友备注',
   PRIMARY KEY (`id`),
   KEY `FK_friend_user` (`uid`),
   KEY `FK_friend_group` (`gid`),
+  KEY `FK_friend_user_2` (`myid`),
   CONSTRAINT `FK_friend_group` FOREIGN KEY (`gid`) REFERENCES `groups` (`id`),
-  CONSTRAINT `FK_friend_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='好友';
+  CONSTRAINT `FK_friend_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_friend_user_2` FOREIGN KEY (`myid`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='好友';
 
--- 正在导出表  xm.friend 的数据：~3 rows (大约)
+-- 正在导出表  xm.friend 的数据：~1 rows (大约)
 DELETE FROM `friend`;
 /*!40000 ALTER TABLE `friend` DISABLE KEYS */;
-INSERT INTO `friend` (`id`, `uid`, `gid`, `status`) VALUES
-	(1, 2, 3, 0),
-	(2, 3, 3, 0),
-	(3, 4, 4, 0);
+INSERT INTO `friend` (`id`, `uid`, `gid`, `status`, `myid`, `note`) VALUES
+	(4, 1, NULL, 1, 2, NULL);
 /*!40000 ALTER TABLE `friend` ENABLE KEYS */;
 
 -- 导出  表 xm.groups 结构
@@ -48,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`id`),
   KEY `FK_group_user` (`uid`),
   CONSTRAINT `FK_group_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='好友分组';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='好友分组';
 
 -- 正在导出表  xm.groups 的数据：~4 rows (大约)
 DELETE FROM `groups`;

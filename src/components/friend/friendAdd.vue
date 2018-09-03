@@ -13,7 +13,7 @@
             <div class="card-body">
             <h4 class="card-title">{{user.username}}</h4>
             <p class="card-text">{{signature}}</p>
-            <a href="#" class="btn btn-primary" v-if="!isFriend">添加好友</a>
+            <a href="#" class="btn btn-primary" v-if="!isFriend" @click="add">添加好友</a>
             <a href="#" class="btn btn-primary" v-if="isFriend">已是好友</a>
             </div>
             <img class="card-img-bottom" :src="url" alt="Card image" style="width:100%">

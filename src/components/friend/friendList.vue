@@ -46,7 +46,7 @@
     
             <!-- 模态框底部 -->
             <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="godelete">确认</button>
+            <button type="button" class="btn btn-primary" @click="godelete" data-dismiss="modal">确认</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
             </div>
     
@@ -115,6 +115,19 @@
                 this.$axios.delete('/api/friend/delete/'+this.theFriend.id)
                 .then(function (response) {
                     console.log(response.data);
+                    that.getUser(this.getCookie("id"))
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            },
+            getUser(id) {
+                var that = this
+                this.$axios.get('/api/groups/'+id)
+                .then(function (response) {
+                    that.groups = null
+                    that.groups = response.data
+                    console.log(response.data);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -123,15 +136,7 @@
         },
         created() {
             if(this.getCookie("id")!=null) {
-                var that = this
-                this.$axios.get('/api/groups/'+this.getCookie('id'))
-                .then(function (response) {
-                    that.groups = response.data
-                    console.log(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                })
+                this.getUser(this.getCookie("id"))
             }
         }
     }
